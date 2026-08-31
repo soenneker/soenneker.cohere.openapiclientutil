@@ -14,7 +14,6 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Cohere.OpenApiClientUtil;
 
-///<inheritdoc cref="ICohereOpenApiClientUtil"/>
 public sealed class CohereOpenApiClientUtil : ICohereOpenApiClientUtil
 {
     private readonly AsyncSingleton<CohereOpenApiClient> _client;
@@ -26,10 +25,13 @@ public sealed class CohereOpenApiClientUtil : ICohereOpenApiClientUtil
             HttpClient httpClient = await httpClientUtil.Get(token).NoSync();
 
             var apiKey = configuration.GetValueStrict<string>("Cohere:ApiKey");
-            string authHeaderValueTemplate = configuration["Cohere:AuthHeaderValueTemplate"] ?? "{token}";
+            string authHeaderName = configuration["Cohere:AuthHeaderName"] ?? "Authorization";
+            string authHeaderValueTemplate = configuration["Cohere:AuthHeaderValueTemplate"] ?? "Bearer {token}";
             string authHeaderValue = authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
 
-            var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider(headerValue: authHeaderValue), httpClient: httpClient);
+            var requestAdapter = new HttpClientRequestAdapter(
+                new GenericAuthenticationProvider(headerName: authHeaderName, headerValue: authHeaderValue),
+                httpClient: httpClient);
 
             return new CohereOpenApiClient(requestAdapter);
         });
@@ -40,18 +42,11 @@ public sealed class CohereOpenApiClientUtil : ICohereOpenApiClientUtil
         return _client.Get(cancellationToken);
     }
 
-    /// <summary>
-    /// Releases resources used by the current instance.
-    /// </summary>
     public void Dispose()
     {
         _client.Dispose();
     }
 
-    /// <summary>
-    /// Asynchronously releases resources used by the current instance.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     public ValueTask DisposeAsync()
     {
         return _client.DisposeAsync();

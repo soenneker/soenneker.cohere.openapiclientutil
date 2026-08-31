@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 namespace Soenneker.Cohere.OpenApiClientUtil.Abstract;
 
 /// <summary>
-/// Exposes a cached OpenAPI client instance.
+/// Provides a cached, authenticated Cohere OpenAPI client.
 /// </summary>
 public interface ICohereOpenApiClientUtil: IDisposable, IAsyncDisposable
 {
     /// <summary>
-    /// Gets the value.
+    /// Gets the client owned by this utility instance.
     /// </summary>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A task containing the result of the operation.</returns>
