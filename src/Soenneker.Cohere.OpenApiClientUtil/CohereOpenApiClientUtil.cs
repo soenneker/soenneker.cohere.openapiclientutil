@@ -14,6 +14,7 @@ using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.Cohere.OpenApiClientUtil;
 
+/// <inheritdoc cref="ICohereOpenApiClientUtil" />
 public sealed class CohereOpenApiClientUtil : ICohereOpenApiClientUtil
 {
     private readonly AsyncSingleton<CohereOpenApiClient> _client;
