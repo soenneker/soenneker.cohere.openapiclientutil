@@ -42,8 +42,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Kiota.GenericAuthenticationProvider" Version="4.0.48" />
-        <PackageReference Include="Soenneker.Cohere.HttpClients" Version="4.0.142" />
-        <PackageReference Include="Soenneker.Cohere.OpenApiClient" Version="4.0.47" />
+        <PackageReference Include="Soenneker.Kiota.GenericAuthenticationProvider" Version="4.0.49" />
+        <PackageReference Include="Soenneker.Cohere.HttpClients" Version="4.0.148" />
+        <PackageReference Include="Soenneker.Cohere.OpenApiClient" Version="4.0.48" />
     </ItemGroup>
 </Project>
