@@ -25,7 +25,7 @@ public sealed class CohereOpenApiClientUtil : ICohereOpenApiClientUtil
         {
             HttpClient httpClient = await httpClientUtil.Get(token).NoSync();
 
-            var apiKey = configuration.GetValueStrict<string>("Cohere:ApiKey");
+            var apiKey = configuration.GetStringStrict("Cohere:ApiKey");
             string authHeaderName = configuration["Cohere:AuthHeaderName"] ?? "Authorization";
             string authHeaderValueTemplate = configuration["Cohere:AuthHeaderValueTemplate"] ?? "Bearer {token}";
             string authHeaderValue = authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
